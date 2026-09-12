@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="أغراض التصغير" />
@@ -80,8 +82,8 @@
     <h1>أغراض التصغير</h1>
     <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
     <div class="stage">
-      <video id="v" playsinline webkit-playsinline preload="metadata" controlslist="nodownload">
-        <source src="media/v-intro.mp4?v=26" type="video/mp4">
+      <video id="v" poster="media/open.jpg?v=27" playsinline webkit-playsinline preload="none" controlslist="nodownload">
+        <source src="media/tahyia.mp4" type="video/mp4">
       </video>
       <button class="play" id="playbtn" type="button">
         <span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span>
@@ -101,6 +103,7 @@
       function startVideo() {
         if (play) play.style.display = "none";
         if (next) next.disabled = false;
+        v.removeAttribute("poster");
         v.setAttribute("controls", "controls");
         v.setAttribute("playsinline", "");
         v.setAttribute("webkit-playsinline", "true");
