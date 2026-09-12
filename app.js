@@ -197,7 +197,7 @@
       <h1>أغراض التصغير</h1>
       <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
       <div class="stage">
-        <video id="v" poster="media/open.jpg" playsinline preload="none" src="media/v-intro.mp4?v=16" ${S.started ? "controls" : ""}></video>
+        <video id="v" playsinline preload="metadata" src="media/v-intro.mp4?v=24" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
       ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
