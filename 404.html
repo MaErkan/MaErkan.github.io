@@ -77,7 +77,9 @@
     <h1>أغراض التصغير</h1>
     <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
     <div class="stage">
-      <video id="v" poster="media/open.jpg" playsinline webkit-playsinline preload="none"></video>
+      <video id="v" poster="media/open.jpg" playsinline webkit-playsinline preload="metadata" controlslist="nodownload">
+        <source src="media/v-intro.mp4?v=17" type="video/mp4">
+      </video>
       <button class="play" id="playbtn" type="button">
         <span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span>
       </button>
@@ -94,15 +96,30 @@
       var play = document.getElementById("playbtn");
       var next = document.getElementById("gonext");
       function startVideo() {
-        if (!v.src) v.src = "media/v-intro.mp4";
-        v.setAttribute("controls", "");
-        v.muted = false;
-        v.volume = 1;
-        var p = v.play();
-        if (p) p.catch(function () { v.muted = true; v.play().catch(function () {}); });
-        if (play) play.remove();
+        if (play) play.style.display = "none";
         if (next) next.disabled = false;
-        window.__started = true;
+        v.setAttribute("controls", "controls");
+        v.setAttribute("playsinline", "");
+        v.setAttribute("webkit-playsinline", "true");
+        v.playsInline = true;
+        v.muted = false;
+        v.defaultMuted = false;
+        v.volume = 1;
+        try { v.currentTime = 0; } catch (e) {}
+        var run = v.play();
+        if (run && run.then) {
+          run.then(function () { window.__started = true; }).catch(function () {
+            v.muted = true;
+            v.play().then(function () {
+              v.muted = false;
+              window.__started = true;
+            }).catch(function () {
+              window.__started = true;
+            });
+          });
+        } else {
+          window.__started = true;
+        }
       }
       if (play) play.addEventListener("click", startVideo);
       if (next) next.addEventListener("click", function () {
