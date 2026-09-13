@@ -128,6 +128,21 @@
   function nextBtn(label, extra, disabled) {
     return `<button type="button" class="next" ${extra} ${disabled ? "disabled" : ""}>${label}</button>`;
   }
+  function navRow(nextHtml) {
+    return `<div class="nav"><button type="button" class="back" data-act="back">رجوع</button>${nextHtml || ""}</div>`;
+  }
+  function goBack() {
+    const stepped = ["discover", "move", "worksheet", "photos", "create"];
+    if (stepped.includes(S.screen) && S.i > 0) {
+      S.i -= 1;
+      S.big = null; S.pur = null; S.pick = null; S.why = ""; S.open = false; S.text = ""; S.saved = false; S.sel = null;
+      window.scrollTo(0, 0);
+      paint();
+      return;
+    }
+    const i = SCREENS.findIndex((s) => s.id === S.screen);
+    if (i > 0) go(SCREENS[i - 1].id);
+  }
   function fb(ok, html) {
     const t = S.lastPraise || (ok ? "أحسنت يا بني." : "حاول مرة أخرى.");
     return `<div class="fb ${ok ? "ok" : "bad"}"><p class="t">${t}</p><div>${html}</div></div>`;
@@ -189,6 +204,8 @@
     if (tm) tm.textContent = mm + ":" + ss;
     const pr = $("prog");
     if (pr) pr.style.width = ((idx + 1) / SCREENS.length) * 100 + "%";
+    const bb = $("backbtn");
+    if (bb) bb.hidden = S.screen === "intro";
   }
 
   function intro() {
@@ -230,14 +247,14 @@
     return `<h2>ما أوزان التصغير؟</h2>
       <p class="muted">طالب على الآيباد يختار الوزن · الباقون: يقف من وافق ويرفع يده من خالف.</p>
       ${weights}${dimin}
-      ${nextBtn("إلى الأهداف", 'data-act="next"', !wDone || !dDone)}`;
+      ${navRow(nextBtn("إلى الأهداف", 'data-act="next"', !wDone || !dDone))}`;
   }
 
   function goals() {
     return `<h2>أهداف الدرس</h2>
       <ol>${OBJECTIVES.map((o, i) => `<li class="card h">${i + 1}. ${o}</li>`).join("")}</ol>
       <p class="muted">تفكير ثنائي: أي هدف يبدو أصعب؟ ثم ننطلق لاكتشاف المعنى من أمثلة الكتاب.</p>
-      ${nextBtn("اكتشاف الأمثلة", 'data-act="next"')}`;
+      ${navRow(nextBtn("اكتشاف الأمثلة", 'data-act="next"'))}`;
   }
 
   function discover() {
@@ -255,7 +272,7 @@
         btn(p.label, `data-act="pur" data-opt="${p.id}"`, S.pur === p.id ? (p.id === item.purpose ? "ok" : "bad") : S.pur && p.id === item.purpose ? "ok" : "")
       ).join("")}</div>
       ${S.big && S.pur ? fb(S.big === item.big && S.pur === item.purpose, item.why) : ""}
-      ${nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "نشاط قف عند الغرض", 'data-act="step"', !S.big || !S.pur)}`;
+      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "نشاط قف عند الغرض", 'data-act="step"', !S.big || !S.pur))}`;
   }
 
   function move() {
@@ -268,7 +285,7 @@
         btn(p.place + " · " + p.label, `data-act="pick" data-opt="${p.id}"`, S.pick === p.id ? (p.id === item.purpose ? "ok" : "bad") : S.pick && p.id === item.purpose ? "ok" : "")
       ).join("")}</div>
       ${S.pick ? fb(S.pick === item.purpose, item.why) : ""}
-      ${nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "جدول المطابقة", 'data-act="step"', !S.pick)}`;
+      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "جدول المطابقة", 'data-act="step"', !S.pick))}`;
   }
 
   function match() {
@@ -282,7 +299,7 @@
         <div>${PURPOSES.map((p) => btn(p.label, `data-act="assign" data-opt="${p.id}"`)).join("")}</div>
       </div>
       ${S.why ? fb(!S.why.startsWith("راجعوا"), S.why) : ""}
-      ${nextBtn("ورقة العمل", 'data-act="next"', !done)}`;
+      ${navRow(nextBtn("ورقة العمل", 'data-act="next"', !done))}`;
   }
 
   function worksheet() {
@@ -296,7 +313,7 @@
       ).join("")}</div>
       ${S.pick && !S.open ? `<button class="link" data-act="why">شرح المعلم</button>` : ""}
       ${S.open ? fb(S.pick === item.purpose, item.why) : ""}
-      ${nextBtn(S.i + 1 < WORKSHEET.length ? "الطالب التالي" : "تحدي الصور", 'data-act="step"', !S.pick)}`;
+      ${navRow(nextBtn(S.i + 1 < WORKSHEET.length ? "الطالب التالي" : "تحدي الصور", 'data-act="step"', !S.pick))}`;
   }
 
   function photos() {
@@ -309,7 +326,7 @@
       <textarea id="sent" rows="2" placeholder="اكتبوا جملة فيها اسم مصغّر">${S.text}</textarea>
       <div class="grid2">${PURPOSES.map((p) => btn(p.label, `data-act="pur" data-opt="${p.id}"`, S.pur === p.id ? "on" : "")).join("")}</div>
       ${S.saved ? fb(true, ok ? "الغرض مناسب للصورة." : "الجملة سُجّلت. راجعوا الغرض إن لزم.") : nextBtn("حفظ جملة الصف", 'data-act="save"', !S.pur)}
-      ${S.saved ? nextBtn(S.i + 1 < PHOTOS.length ? "الصورة التالية" : "كن مبدعًا", 'data-act="step"') : ""}`;
+      ${navRow(S.saved ? nextBtn(S.i + 1 < PHOTOS.length ? "الصورة التالية" : "كن مبدعًا", 'data-act="step"') : "")}`;
   }
 
   function create() {
@@ -318,7 +335,7 @@
       <p>أنشئوا جملة للغرض: <b>${item.label}</b></p>
       <textarea id="sent" rows="2" placeholder="جملة تامة فيها مصغّر">${S.created[item.id] || S.text}</textarea>
       ${S.saved ? fb(true, "سُجّلت جملة الصف.") : nextBtn("حفظ الجملة", 'data-act="csave"')}
-      ${S.saved ? nextBtn(S.i + 1 < CREATE.length ? "الغرض التالي" : "التقويم البنائي", 'data-act="step"') : ""}`;
+      ${navRow(S.saved ? nextBtn(S.i + 1 < CREATE.length ? "الغرض التالي" : "التقويم البنائي", 'data-act="step"') : "")}`;
   }
 
   function quiz() {
@@ -333,7 +350,7 @@
           ).join("")}</div></div>`;
       }).join("")}
       ${done ? fb(true, "نتيجة الفصل: " + S.score + " نقطة.") : ""}
-      ${nextBtn("الغلق الختامي", 'data-act="next"', !done)}`;
+      ${navRow(nextBtn("الغلق الختامي", 'data-act="next"', !done))}`;
   }
 
   function close() {
@@ -356,7 +373,7 @@
       <div class="card"><p>ورقة / زهرات · المطلوب: قلة العدد</p>
         ${S.used.z ? `<p>قطفت زُهَيْرَاتٍ قليلة.</p>` : btn("إظهار جملة الصف", 'data-act="use" data-opt="z"')}</div>
       <p class="credit">إعداد المعلم محمد المعصراوي</p>
-      ${S.learn && S.bag && S.used.h && S.used.z ? nextBtn("إعادة الدرس", 'data-act="reset"') : ""}`;
+      ${navRow(S.learn && S.bag && S.used.h && S.used.z ? nextBtn("إعادة الدرس", 'data-act="reset"') : "")}`;
   }
 
   const views = { recall, goals, discover, move, match, worksheet, photos, create, quiz, close };
@@ -381,6 +398,7 @@
   function onAct(act, el) {
     const opt = el.dataset.opt;
     if (act === "next") { nextScreen(); return; }
+    if (act === "back") { goBack(); return; }
     if (act === "reset") {
       Object.assign(S, { screen: "intro", score: 0, started: false, i: 0, wPick: {}, dPick: {}, map: {}, quiz: {}, created: {}, used: {}, learn: null, bag: null, pick: null, big: null, pur: null, text: "", saved: false });
       const v = $("v");
@@ -507,6 +525,8 @@
   });
   const home = $("home");
   if (home) home.addEventListener("click", () => go("intro"));
+  const backbtn = $("backbtn");
+  if (backbtn) backbtn.addEventListener("click", goBack);
   window.goScreen = go;
 
   tick = setInterval(() => {
