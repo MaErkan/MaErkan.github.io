@@ -135,8 +135,8 @@
   function play(ok) {
     const list = ok ? PRAISE : RETRY;
     const files = ok
-      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=6")
-      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=6");
+      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=7")
+      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=7");
     const i = Math.floor(Math.random() * list.length);
     S.lastPraise = list[i];
     const a = new Audio(files[i]);
