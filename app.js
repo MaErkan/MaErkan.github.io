@@ -245,7 +245,7 @@
       </div>`;
     }).join("");
     return `<h2>ما أوزان التصغير؟</h2>
-      <p class="muted">طالب على الآيباد يختار الوزن · الباقون: يقف من وافق ويرفع يده من خالف.</p>
+      <p class="muted">طالب يختار الوزن · الباقون: يقف من وافق ويرفع يده من خالف.</p>
       ${weights}${dimin}
       ${navRow(nextBtn("إلى الأهداف", 'data-act="next"', !wDone || !dDone))}`;
   }
@@ -278,7 +278,7 @@
   function move() {
     const item = BOOK[S.i];
     return `<h2>قف عند الغرض</h2>
-      <p class="muted">يتحرك الصف إلى المنطقة، ثم يثبّت الطالب الإجابة على الآيباد.</p>
+      <p class="muted">يتحرك الصف إلى المنطقة، ثم يثبّت الطالب الإجابة.</p>
       <div class="grid3">${PURPOSES.map((p) => `<div class="card c"><p class="muted">${p.place}</p><p>${p.label}</p></div>`).join("")}</div>
       <p class="quote">${mark(item.sentence, item.small)}</p>
       <div class="grid2">${PURPOSES.map((p) =>
