@@ -81,8 +81,8 @@
     full: "ما سنتعلمه في درسنا اليوم أغراض التصغير، وأن السياق هو مفتاح معرفة الغرض.",
     options: ["أغراض التصغير", "صغر الحجم فقط", "أوزان الفعل"],
   };
-  const PRAISE = ["أحسنتَ يا بني.", "بوركتَ، إجابة صحيحة.", "أنت متميز.", "أحسنتَ.", "ممتاز يا فتى.", "نعم، هذا هو المراد.", "أصبتَ.", "إجابة متميزة.", "بوركتَ يا بني.", "فكّرتَ تفكير العلماء.", "أنت بارع.", "أحسنتَ الفهم.", "رائع، أصبتَ.", "نعم يا بطل.", "وُفِّقتَ."];
-  const RETRY = ["حاول مرة أخرى.", "تأمل السياق يا بني.", "راجع المثال.", "فكّر في دلالة الكلمة.", "اقترب، أعد المحاولة.", "انظر إلى الجملة كاملة."];
+  const PRAISE = ["أحسنت يا بني.", "بوركت.", "أنت متميز.", "أحسنت.", "ممتاز يا فتى.", "نعم، هذا هو المراد.", "أصبت.", "إجابة متميزة.", "بوركت يا بني.", "فكرت تفكير العلماء.", "أنت بارع.", "أحسنت الفهم.", "رائع، أصبت.", "نعم يا بطل.", "وفقت."];
+  const RETRY = ["حاول مرة أخرى.", "تأمل السياق يا بني.", "راجع المثال.", "فكر في دلالة الكلمة.", "اقترب، أعد المحاولة.", "انظر إلى الجملة كاملة."];
 
   const S = {
     screen: "intro",
@@ -129,14 +129,14 @@
     return `<button type="button" class="next" ${extra} ${disabled ? "disabled" : ""}>${label}</button>`;
   }
   function fb(ok, html) {
-    const t = S.lastPraise || (ok ? "أحسنتَ يا بني." : "حاول مرة أخرى.");
+    const t = S.lastPraise || (ok ? "أحسنت يا بني." : "حاول مرة أخرى.");
     return `<div class="fb ${ok ? "ok" : "bad"}"><p class="t">${t}</p><div>${html}</div></div>`;
   }
   function play(ok) {
     const list = ok ? PRAISE : RETRY;
     const files = ok
-      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=8")
-      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=8");
+      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=9")
+      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=9");
     const i = Math.floor(Math.random() * list.length);
     S.lastPraise = list[i];
     const a = new Audio(files[i]);
@@ -197,7 +197,7 @@
       <h1>أغراض التصغير</h1>
       <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
       <div class="stage">
-        <video id="v" poster="media/open.jpg?v=31" playsinline preload="none" src="media/tahyia.mp4?v=31" ${S.started ? "controls" : ""}></video>
+        <video id="v" poster="media/open.jpg?v=32" playsinline preload="none" src="media/tahyia.mp4?v=32" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
       ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
