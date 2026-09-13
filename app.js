@@ -59,7 +59,7 @@
     { sentence: "تفتحت زهيرات في حديقتنا.", small: "زهيرات", purpose: "few", why: "زهيرات تدل على قلة العدد." },
   ];
   const PHOTOS = [
-    { img: "media/girl.jpg", hint: "بنت", allow: ["love"] },
+    { img: "media/boy.jpg", hint: "ولد", allow: ["love"] },
     { img: "media/flowers.jpg", hint: "زهرات", allow: ["few", "size"] },
     { img: "media/bird.jpg", hint: "عصفور / شجرة", allow: ["size", "few"] },
   ];
