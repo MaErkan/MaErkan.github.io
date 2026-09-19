@@ -11,7 +11,8 @@
     { id: "intro", label: "الافتتاح", phase: "تهيئة", minutes: 2 },
     { id: "recall", label: "الاسترجاع", phase: "تهيئة", minutes: 5 },
     { id: "goals", label: "الأهداف", phase: "تهيئة", minutes: 1 },
-    { id: "board", label: "انتبه للشرح", phase: "تهيئة", minutes: 3 },
+    { id: "examples", label: "أمثلة الكتاب", phase: "اكتشاف", minutes: 2 },
+    { id: "board", label: "انتبه لشرح المعلم", phase: "اكتشاف", minutes: 3 },
     { id: "discover", label: "الاكتشاف", phase: "اكتشاف", minutes: 8 },
     { id: "move", label: "قف عند الغرض", phase: "اكتشاف", minutes: 6 },
     { id: "match", label: "المطابقة", phase: "تطبيق", minutes: 5 },
@@ -134,8 +135,9 @@
   }
   const TIPS = {
     recall: "اسأل الوزن بصوت واحد. من وافق يبقى جالسًا، ومن خالف يقف. لا ترفع الأيدي.",
-    goals: "اقرأ الأهداف حرفيًا. اسأل: أي هدف يبدو أصعب؟ ثم افتح صفحة الشرح.",
-    board: "اشرح على السبورة البيضاء. الطلاب ينظرون إليك بلا رفع أيد. بعد الشرح انتقل للاكتشاف.",
+    goals: "اقرأ الأهداف حرفيًا. ثم اعرض أمثلة الكتاب قبل الشرح.",
+    examples: "اقرأ الأمثلة جهرًا دون أسئلة. ثم افتح صفحة الشرح.",
+    board: "اشرح على السبورة البيضاء. الطلاب ينظرون إليك بلا رفع أيد. بعد الشرح انتقل للأسئلة.",
     discover: "اقرأ الجملة جهرًا. اسأل أولًا عن المكبر ثم عن الغرض من السياق.",
     move: "حدّد مناطق الفصل قبل الجملة. يتحرك الصف ثم تثبّت الإجابة على الشاشة.",
     match: "اضغطوا المثال أولًا ثم الغرض. صحّح الخطأ من السياق لا من التخمين.",
@@ -273,15 +275,24 @@
     return `<h2>أهداف الدرس</h2>
       ${tip()}
       <ol>${OBJECTIVES.map((o, i) => `<li class="card h">${i + 1}. ${o}</li>`).join("")}</ol>
-      <p class="muted">تفكير ثنائي: أي هدف يبدو أصعب؟ ثم ننطلق لاكتشاف المعنى من أمثلة الكتاب.</p>
+      <p class="muted">تفكير ثنائي: أي هدف يبدو أصعب؟</p>
+      ${navRow(nextBtn("أمثلة الكتاب", 'data-act="next"'))}`;
+  }
+
+  function examples() {
+    return `<h2>أمثلة الكتاب</h2>
+      ${tip()}
+      <ol class="exlist">${BOOK.map((item, i) =>
+        `<li class="quote">${i + 1}. ${mark(item.sentence, item.small)}</li>`
+      ).join("")}</ol>
       ${navRow(nextBtn("إلى الشرح", 'data-act="next"'))}`;
   }
 
   function board() {
     return `<div class="boardpage">
-      <p class="boardtitle">انتبه للشرح</p>
+      <p class="boardtitle">انتبه لشرح المعلم</p>
       <div class="boardspace"></div>
-      ${navRow(nextBtn("اكتشاف الأمثلة", 'data-act="next"'))}
+      ${navRow(nextBtn("أسئلة الأمثلة", 'data-act="next"'))}
     </div>`;
   }
 
@@ -411,7 +422,7 @@
       ${navRow(S.learn && S.bag && S.used.h && S.used.z ? nextBtn("إعادة الدرس", 'data-act="reset"') : "")}`;
   }
 
-  const views = { recall, goals, board, discover, move, match, worksheet, photos, create, quiz, close };
+  const views = { recall, goals, examples, board, discover, move, match, worksheet, photos, create, quiz, close };
 
   function paint() {
     header();
