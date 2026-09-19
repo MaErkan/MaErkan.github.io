@@ -72,6 +72,12 @@
     .credit { color:var(--m); margin-top:24px; }
     footer { border-top:1px solid var(--bd); text-align:center; padding:14px 14px 28px; color:var(--muted); font-size:14px; }
     b { color:var(--m); }
+    body.onboard { background:#fff; }
+    body.onboard header { background:#fff; }
+    body.onboard #lesson { max-width:none; padding:12px 16px 32px; }
+    .boardpage { min-height:70dvh; background:#fff; display:flex; flex-direction:column; }
+    .boardtitle { font-family:Amiri,"Noto Naskh Arabic",serif; font-size:clamp(32px,5vw,48px); color:#1c1915; margin:8px 0 12px; text-align:center; }
+    .boardspace { flex:1; min-height:52dvh; background:#fff; border:1px solid #ececec; border-radius:12px; }
   </style>
 </head>
 <body>
@@ -151,6 +157,6 @@
       });
     })();
   </script>
-  <script src="app.js?v=14" defer></script>
+  <script src="app.js?v=15" defer></script>
 </body>
 </html>
