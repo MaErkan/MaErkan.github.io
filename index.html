@@ -41,7 +41,7 @@
     .play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(28,25,21,.45); border:0; cursor:pointer; color:#fbf6ec; }
     .play span { background:var(--m); border-radius:12px; padding:14px 28px; font-size:20px; display:flex; flex-direction:column; align-items:center; gap:4px; }
     .play small { font-size:13px; opacity:.85; }
-    .b, .next { font-family:inherit; font-size:18px; border:0; border-radius:12px; padding:14px 16px; cursor:pointer; text-align:right; }
+    .b, .next { font-family:inherit; font-size:20px; border:0; border-radius:12px; padding:14px 16px; cursor:pointer; text-align:right; }
     .b { background:var(--card); color:var(--ink); box-shadow:0 0 0 1px rgba(28,25,21,.08); width:100%; margin:4px 0; }
     .b.on { background:var(--m); color:#fbf6ec; }
     .b.ok { background:#3f5d50; color:#f4ecdd; }
@@ -57,7 +57,10 @@
     @media(min-width:640px){ .grid2{grid-template-columns:1fr 1fr} .grid3{grid-template-columns:1fr 1fr 1fr} .cols{grid-template-columns:1fr 1fr} }
     .card { background:var(--card); border-radius:14px; padding:14px 16px; margin:10px 0; box-shadow:0 0 0 1px rgba(28,25,21,.06); }
     .c { text-align:center; }
-    .quote { background:var(--card); border-radius:14px; padding:18px 20px; font-size:22px; line-height:1.8; }
+    .quote { background:var(--card); border-radius:14px; padding:18px 20px; font-size:28px; line-height:1.8; }
+    .q { font-size:26px; line-height:1.7; margin:10px 0 8px; font-family:Amiri,"Noto Naskh Arabic",serif; }
+    .tip { font-size:16px; line-height:1.7; background:#fff8ee; border-right:4px solid var(--m); border-radius:10px; padding:10px 14px; margin:10px 0 16px; color:#3a332b; }
+    .tip b { font-size:16px; }
     mark { background:rgba(122,36,54,.15); color:var(--m); padding:0 4px; border-radius:4px; }
     .fb { border-radius:12px; padding:12px 14px; margin:12px 0; }
     .fb.ok { background:rgba(63,93,80,.12); color:var(--ok); }
@@ -87,9 +90,10 @@
     <p class="kicker">اللغة العربية · الصف العاشر</p>
     <h1>أغراض التصغير</h1>
     <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
+    <p class="tip"><b>إرشاد المعلم:</b> شغّل التهيئة. الطلاب ينظرون إليك بلا رفع أيدٍ ولا التفات. بعدها انتقل للاسترجاع.</p>
     <div class="stage">
-      <video id="v" poster="media/open.jpg?v=33" playsinline webkit-playsinline preload="none" controlslist="nodownload">
-        <source src="media/tahyia.mp4?v=33" type="video/mp4">
+      <video id="v" poster="media/open.jpg?v=34" playsinline webkit-playsinline preload="none" controlslist="nodownload">
+        <source src="media/tahyia.mp4?v=34" type="video/mp4">
       </video>
       <button class="play" id="playbtn" type="button">
         <span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span>
@@ -147,6 +151,6 @@
       });
     })();
   </script>
-  <script src="app.js?v=13" defer></script>
+  <script src="app.js?v=14" defer></script>
 </body>
 </html>

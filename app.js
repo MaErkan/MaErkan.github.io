@@ -131,6 +131,22 @@
   function navRow(nextHtml) {
     return `<div class="nav"><button type="button" class="back" data-act="back">رجوع</button>${nextHtml || ""}</div>`;
   }
+  const TIPS = {
+    recall: "اسأل الوزن بصوت واحد. من وافق يبقى جالسًا، ومن خالف يقف. لا ترفع الأيدي.",
+    goals: "اقرأ الأهداف حرفيًا. اسأل: أي هدف يبدو أصعب؟ ثم انتقل للأمثلة.",
+    discover: "اقرأ الجملة جهرًا. اسأل أولًا عن المكبر ثم عن الغرض من السياق.",
+    move: "حدّد مناطق الفصل قبل الجملة. يتحرك الصف ثم تثبّت الإجابة على الشاشة.",
+    match: "اضغطوا المثال أولًا ثم الغرض. صحّح الخطأ من السياق لا من التخمين.",
+    worksheet: "طالب واحد لكل مثال. اطلب التعليل بجملة قصيرة قبل التالي.",
+    photos: "جملة تامة فيها مصغّر + غرض واضح. لا تُقبل جملة بلا غرض.",
+    create: "دقيقة تفكير ثم جملة شفهية. سجّل أفضل جملة للصف.",
+    quiz: "سؤالًا سؤالًا بلا سرعة. النقاط للفصل كله.",
+    close: "أكمل الجملة جماعيًا ثم أغلق بالفكرة: السياق مفتاح الغرض.",
+  };
+  function tip() {
+    const t = TIPS[S.screen];
+    return t ? `<p class="tip"><b>إرشاد المعلم:</b> ${t}</p>` : "";
+  }
   function goBack() {
     const stepped = ["discover", "move", "worksheet", "photos", "create"];
     if (stepped.includes(S.screen) && S.i > 0) {
@@ -237,7 +253,7 @@
     const dimin = !wDone ? "" : `<h3>نُصَغِّرُ: أسد — مسجد — عصفور</h3>` + DIMIN.map((d) => {
       const picked = S.dPick[d.big];
       return `<div class="card">
-        <p>نُصَغِّرُ: ${d.big}</p>
+        <p class="q">نُصَغِّرُ: ${d.big}</p>
         <div class="grid3">${d.options.map((opt) =>
           btn(opt, `data-act="d" data-big="${d.big}" data-opt="${opt}"`, picked === opt ? (opt === d.answer ? "ok" : "bad") : picked && opt === d.answer ? "ok" : "")
         ).join("")}</div>
@@ -245,13 +261,15 @@
       </div>`;
     }).join("");
     return `<h2>ما أوزان التصغير؟</h2>
-      <p class="muted">طالب يختار الوزن · الباقون: يقف من وافق ويرفع يده من خالف.</p>
+      ${tip()}
+      <p class="q">ما وزن تصغير كل كلمة؟</p>
       ${weights}${dimin}
       ${navRow(nextBtn("إلى الأهداف", 'data-act="next"', !wDone || !dDone))}`;
   }
 
   function goals() {
     return `<h2>أهداف الدرس</h2>
+      ${tip()}
       <ol>${OBJECTIVES.map((o, i) => `<li class="card h">${i + 1}. ${o}</li>`).join("")}</ol>
       <p class="muted">تفكير ثنائي: أي هدف يبدو أصعب؟ ثم ننطلق لاكتشاف المعنى من أمثلة الكتاب.</p>
       ${navRow(nextBtn("اكتشاف الأمثلة", 'data-act="next"'))}`;
@@ -260,14 +278,14 @@
   function discover() {
     const item = BOOK[S.i];
     return `<h2>اكتشاف المعنى من أمثلة الكتاب</h2>
+      ${tip()}
       <p class="muted">مثال ${S.i + 1} من ${BOOK.length}</p>
       <p class="quote">${mark(item.sentence, item.small)}</p>
-      <p>الاسم المصغر: <b>${item.small}</b></p>
-      <p>مكبره</p>
+      <p class="q">ما مكبر <b>${item.small}</b>؟</p>
       <div class="grid3">${item.bigOptions.map((opt) =>
         btn(opt, `data-act="big" data-opt="${opt}"`, S.big === opt ? (opt === item.big ? "ok" : "bad") : S.big && opt === item.big ? "ok" : "")
       ).join("")}</div>
-      <p>الغرض من التصغير</p>
+      <p class="q">ما الغرض من التصغير؟</p>
       <div class="grid2">${PURPOSES.map((p) =>
         btn(p.label, `data-act="pur" data-opt="${p.id}"`, S.pur === p.id ? (p.id === item.purpose ? "ok" : "bad") : S.pur && p.id === item.purpose ? "ok" : "")
       ).join("")}</div>
@@ -278,6 +296,7 @@
   function move() {
     const item = BOOK[S.i];
     return `<h2>قف عند الغرض</h2>
+      ${tip()}
       <p class="muted">يتحرك الصف إلى المنطقة، ثم يثبّت الطالب الإجابة.</p>
       <div class="grid3">${PURPOSES.map((p) => `<div class="card c"><p class="muted">${p.place}</p><p>${p.label}</p></div>`).join("")}</div>
       <p class="quote">${mark(item.sentence, item.small)}</p>
@@ -291,6 +310,7 @@
   function match() {
     const done = MATCH.every((m) => S.map[m.id]);
     return `<h2>جدول المطابقة</h2>
+      ${tip()}
       <p class="muted">اضغطوا المثال ثم الغرض.</p>
       <div class="cols">
         <div>${MATCH.map((m) =>
@@ -305,7 +325,8 @@
   function worksheet() {
     const item = WORKSHEET[S.i];
     return `<h2>ورقة العمل</h2>
-      <p>ما المعنى الذي أفاده التصغير في الكلمات بين القوسين؟</p>
+      ${tip()}
+      <p class="q">ما المعنى الذي أفاده التصغير في الكلمات بين القوسين؟</p>
       <p class="muted">يخرج طالب واحد لكل مثال · ${S.i + 1} / ${WORKSHEET.length}</p>
       <p class="quote">${mark(item.sentence, item.small)}</p>
       <div class="grid2">${PURPOSES.map((p) =>
@@ -320,6 +341,7 @@
     const item = PHOTOS[S.i];
     const ok = S.pur && item.allow.includes(S.pur);
     return `<h2>تحدي الصور</h2>
+      ${tip()}
       <p class="muted">جملة مفيدة + غرض واضح. لا تُقبل جملة بلا غرض.</p>
       <img src="${item.img}" alt="${item.hint}" />
       <p class="muted">رمز: ${item.hint}</p>
@@ -332,7 +354,8 @@
   function create() {
     const item = CREATE[S.i];
     return `<h2>كن مبدعًا</h2>
-      <p>أنشئوا جملة للغرض: <b>${item.label}</b></p>
+      ${tip()}
+      <p class="q">أنشئوا جملة للغرض: <b>${item.label}</b></p>
       <textarea id="sent" rows="2" placeholder="جملة تامة فيها مصغّر">${S.created[item.id] || S.text}</textarea>
       ${S.saved ? fb(true, "سُجّلت جملة الصف.") : nextBtn("حفظ الجملة", 'data-act="csave"')}
       ${navRow(S.saved ? nextBtn(S.i + 1 < CREATE.length ? "الغرض التالي" : "التقويم البنائي", 'data-act="step"') : "")}`;
@@ -341,10 +364,11 @@
   function quiz() {
     const done = QUIZ.every((_, i) => S.quiz[i] !== undefined);
     return `<h2>تقويم بنائي سريع</h2>
+      ${tip()}
       <p class="muted">النقاط للفصل كله. الآن: ${S.score}</p>
       ${QUIZ.map((q, i) => {
         const picked = S.quiz[i];
-        return `<div class="card"><p class="h">${i + 1}. ${q.q}</p>
+        return `<div class="card"><p class="q">${i + 1}. ${q.q}</p>
           <div class="grid2">${PURPOSES.map((p) =>
             btn(p.label, `data-act="quiz" data-i="${i}" data-opt="${p.id}"`, picked === p.id ? (p.id === q.a ? "ok" : "bad") : picked !== undefined && p.id === q.a ? "ok" : "")
           ).join("")}</div></div>`;
@@ -355,6 +379,7 @@
 
   function close() {
     return `<h2>أكمل</h2>
+      ${tip()}
       <p class="quote">${CLOSE_LEARN.stem} <span class="gap">........</span></p>
       <div class="grid3">${CLOSE_LEARN.options.map((opt) =>
         btn(opt, `data-act="learn" data-opt="${opt}"`, S.learn === opt ? (opt === CLOSE_LEARN.answer ? "ok" : "bad") : S.learn && opt === CLOSE_LEARN.answer ? "ok" : "")
@@ -362,7 +387,7 @@
       ${S.learn ? fb(S.learn === CLOSE_LEARN.answer, CLOSE_LEARN.full) : ""}
       <h2>ماذا تعلمت اليوم؟</h2>
       <p class="quote">الحقيبة دوين الرف.</p>
-      <p>ما غرض التصغير في «دوين»؟</p>
+      <p class="q">ما غرض التصغير في «دوين»؟</p>
       <div class="grid2">${PURPOSES.map((p) =>
         btn(p.label, `data-act="bag" data-opt="${p.id}"`, S.bag === p.id ? (p.id === "place" ? "ok" : "bad") : S.bag && p.id === "place" ? "ok" : "")
       ).join("")}</div>
