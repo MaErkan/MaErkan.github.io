@@ -243,7 +243,7 @@
       <h1>أغراض التصغير</h1>
       <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
       <div class="stage">
-        <video id="v" poster="media/open31.jpg" playsinline preload="none" src="media/tahyia-board.mp4?v=board" ${S.started ? "controls" : ""}></video>
+        <video id="v" poster="media/house.jpg" playsinline preload="none" src="media/tahyia-story.mp4?v=story" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
       ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
