@@ -246,7 +246,7 @@
         <video id="v" poster="media/house.jpg" playsinline preload="none" src="media/tahyia-story.mp4?v=tashkeel" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
-      ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
+      ${nextBtn("إلى الاسترجاع", 'data-act="next"')}
     `;
   }
 
@@ -277,7 +277,7 @@
       ${tip()}
       <p class="q">ما وزن تصغير كل كلمة؟</p>
       ${weights}${dimin}
-      ${navRow(nextBtn("إلى الأهداف", 'data-act="next"', !wDone || !dDone))}`;
+      ${navRow(nextBtn("إلى الأهداف", 'data-act="next"'))}`;
   }
 
   function goals() {
@@ -320,7 +320,7 @@
         btn(p.label, `data-act="pur" data-opt="${p.id}"`, S.pur === p.id ? (p.id === item.purpose ? "ok" : "bad") : S.pur && p.id === item.purpose ? "ok" : "")
       ).join("")}</div>
       ${S.big && S.pur ? fb(S.big === item.big && S.pur === item.purpose, item.why) : ""}
-      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "نشاط قف عند الغرض", 'data-act="step"', !S.big || !S.pur))}`;
+      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "نشاط قف عند الغرض", 'data-act="step"'))}`;
   }
 
   function move() {
@@ -334,7 +334,7 @@
         btn(p.place + " · " + p.label, `data-act="pick" data-opt="${p.id}"`, S.pick === p.id ? (p.id === item.purpose ? "ok" : "bad") : S.pick && p.id === item.purpose ? "ok" : "")
       ).join("")}</div>
       ${S.pick ? fb(S.pick === item.purpose, item.why) : ""}
-      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "جدول المطابقة", 'data-act="step"', !S.pick))}`;
+      ${navRow(nextBtn(S.i + 1 < BOOK.length ? "المثال التالي" : "جدول المطابقة", 'data-act="step"'))}`;
   }
 
   function match() {
@@ -349,7 +349,7 @@
         <div>${PURPOSES.map((p) => btn(p.label, `data-act="assign" data-opt="${p.id}"`)).join("")}</div>
       </div>
       ${S.why ? fb(!S.why.startsWith("راجعوا"), S.why) : ""}
-      ${navRow(nextBtn("ورقة العمل", 'data-act="next"', !done))}`;
+      ${navRow(nextBtn("ورقة العمل", 'data-act="next"'))}`;
   }
 
   function worksheet() {
@@ -364,7 +364,7 @@
       ).join("")}</div>
       ${S.pick && !S.open ? `<button class="link" data-act="why">شرح المعلم</button>` : ""}
       ${S.open ? fb(S.pick === item.purpose, item.why) : ""}
-      ${navRow(nextBtn(S.i + 1 < WORKSHEET.length ? "الطالب التالي" : "تحدي الصور", 'data-act="step"', !S.pick))}`;
+      ${navRow(nextBtn(S.i + 1 < WORKSHEET.length ? "الطالب التالي" : "تحدي الصور", 'data-act="step"'))}`;
   }
 
   function photos() {
@@ -378,7 +378,7 @@
       <textarea id="sent" rows="2" placeholder="اكتبوا جملة فيها اسم مصغّر">${S.text}</textarea>
       <div class="grid2">${PURPOSES.map((p) => btn(p.label, `data-act="pur" data-opt="${p.id}"`, S.pur === p.id ? "on" : "")).join("")}</div>
       ${S.saved ? fb(true, ok ? "الغرض مناسب للصورة." : "الجملة سُجّلت. راجعوا الغرض إن لزم.") : nextBtn("حفظ جملة الصف", 'data-act="save"', !S.pur)}
-      ${navRow(S.saved ? nextBtn(S.i + 1 < PHOTOS.length ? "الصورة التالية" : "كن مبدعًا", 'data-act="step"') : "")}`;
+      ${navRow(nextBtn(S.i + 1 < PHOTOS.length ? "الصورة التالية" : "كن مبدعًا", 'data-act="step"'))}`;
   }
 
   function create() {
@@ -388,7 +388,7 @@
       <p class="q">أنشئوا جملة للغرض: <b>${item.label}</b></p>
       <textarea id="sent" rows="2" placeholder="جملة تامة فيها مصغّر">${S.created[item.id] || S.text}</textarea>
       ${S.saved ? fb(true, "سُجّلت جملة الصف.") : nextBtn("حفظ الجملة", 'data-act="csave"')}
-      ${navRow(S.saved ? nextBtn(S.i + 1 < CREATE.length ? "الغرض التالي" : "التقويم البنائي", 'data-act="step"') : "")}`;
+      ${navRow(nextBtn(S.i + 1 < CREATE.length ? "الغرض التالي" : "التقويم البنائي", 'data-act="step"'))}`;
   }
 
   function quiz() {
@@ -404,7 +404,7 @@
           ).join("")}</div></div>`;
       }).join("")}
       ${done ? fb(true, "نتيجة الفصل: " + S.score + " نقطة.") : ""}
-      ${navRow(nextBtn("الغلق الختامي", 'data-act="next"', !done))}`;
+      ${navRow(nextBtn("الغلق الختامي", 'data-act="next"'))}`;
   }
 
   function close() {
@@ -428,7 +428,7 @@
       <div class="card"><p>وَرَقَة / زَهْرَات · المطلوب: قِلَّةُ الْعَدَدِ</p>
         ${S.used.z ? `<p>قطفت زُهَيْرَاتٍ قليلة.</p>` : btn("إظهار جملة الصف", 'data-act="use" data-opt="z"')}</div>
       <p class="credit">إعداد المعلم محمد المعصراوي</p>
-      ${navRow(S.learn && S.bag && S.used.h && S.used.z ? nextBtn("إعادة الدرس", 'data-act="reset"') : "")}`;
+      ${navRow(nextBtn("إعادة الدرس", 'data-act="reset"'))}`;
   }
 
   const views = { recall, goals, examples, board, discover, move, match, worksheet, photos, create, quiz, close };
