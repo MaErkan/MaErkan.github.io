@@ -181,7 +181,16 @@
     play(ok);
     if (ok) S.score += 1;
   }
+  function stopIntroVideo() {
+    const v = $("v");
+    if (!v) return;
+    try { v.pause(); } catch (e) {}
+    v.muted = true;
+    v.volume = 0;
+    try { v.currentTime = 0; } catch (e) {}
+  }
   function go(id, resetStep) {
+    if (id !== "intro") stopIntroVideo();
     S.screen = id;
     if (resetStep !== false) {
       S.i = 0;
@@ -234,7 +243,7 @@
       <h1>أغراض التصغير</h1>
       <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
       <div class="stage">
-        <video id="v" poster="media/open31.jpg" playsinline preload="none" src="media/tahyia-txt.mp4?v=txt" ${S.started ? "controls" : ""}></video>
+        <video id="v" poster="media/open31.jpg" playsinline preload="none" src="media/tahyia-board.mp4?v=board" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
       ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
@@ -433,6 +442,7 @@
       if (lesson) lesson.hidden = true;
       return;
     }
+    stopIntroVideo();
     if (introEl) introEl.hidden = true;
     if (!lesson) return;
     lesson.hidden = false;
@@ -571,10 +581,11 @@
     onAct(el.dataset.act, el);
   });
   const home = $("home");
-  if (home) home.addEventListener("click", () => go("intro"));
+  if (home) home.addEventListener("click", () => { stopIntroVideo(); go("intro"); });
   const backbtn = $("backbtn");
   if (backbtn) backbtn.addEventListener("click", goBack);
   window.goScreen = go;
+  window.stopIntroVideo = stopIntroVideo;
 
   tick = setInterval(() => {
     S.left = Math.max(0, S.left - 1);

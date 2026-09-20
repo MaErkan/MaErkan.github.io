@@ -105,7 +105,7 @@
     <p class="tip"><b>إرشاد المعلم:</b> شغّل التهيئة. الطلاب ينظرون إليك بلا رفع أيدٍ ولا التفات. بعدها انتقل للاسترجاع.</p>
     <div class="stage">
       <video id="v" poster="media/open31.jpg" playsinline webkit-playsinline preload="none" controlslist="nodownload">
-        <source src="media/tahyia-txt.mp4" type="video/mp4">
+        <source src="media/tahyia-board.mp4" type="video/mp4">
       </video>
       <button class="play" id="playbtn" type="button">
         <span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span>
@@ -151,6 +151,13 @@
       }
       if (play) play.addEventListener("click", startVideo);
       if (next) next.addEventListener("click", function () {
+        var vid = document.getElementById("v");
+        if (window.stopIntroVideo) window.stopIntroVideo();
+        else if (vid) {
+          try { vid.pause(); } catch (e) {}
+          vid.muted = true;
+          vid.volume = 0;
+        }
         if (window.goScreen) window.goScreen("recall");
         else {
           var n = 0;
@@ -163,6 +170,6 @@
       });
     })();
   </script>
-  <script src="app.js?v=txt" defer></script>
+  <script src="app.js?v=board" defer></script>
 </body>
 </html>
