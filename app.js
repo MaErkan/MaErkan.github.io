@@ -182,10 +182,12 @@
     if (ok) S.score += 1;
   }
   function stopIntroVideo() {
+    window.__introOn = false;
     const v = $("v");
     if (!v) return;
     try { v.pause(); } catch (e) {}
     v.muted = true;
+    v.defaultMuted = true;
     v.volume = 0;
     try { v.currentTime = 0; } catch (e) {}
   }

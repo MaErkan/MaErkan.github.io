@@ -119,10 +119,25 @@
 
   <script>
     (function () {
-      var v = document.getElementById("v");
+      window.__introOn = false;
+      function getV() { return document.getElementById("v"); }
+      function killTahyia() {
+        window.__introOn = false;
+        var v = getV();
+        if (!v) return;
+        try { v.pause(); } catch (e) {}
+        v.muted = true;
+        v.defaultMuted = true;
+        v.volume = 0;
+        try { v.currentTime = 0; } catch (e) {}
+      }
+      window.stopIntroVideo = killTahyia;
       var play = document.getElementById("playbtn");
       var next = document.getElementById("gonext");
       function startVideo() {
+        window.__introOn = true;
+        var v = getV();
+        if (!v) return;
         if (play) play.style.display = "none";
         if (next) next.disabled = false;
         v.removeAttribute("poster");
@@ -135,41 +150,45 @@
         v.volume = 1;
         try { v.currentTime = 0; } catch (e) {}
         var run = v.play();
-        if (run && run.then) {
-          run.then(function () { window.__started = true; }).catch(function () {
-            v.muted = true;
-            v.play().then(function () {
-              v.muted = false;
-              window.__started = true;
-            }).catch(function () {
-              window.__started = true;
-            });
-          });
-        } else {
+        function afterPlay() {
+          if (!window.__introOn) { killTahyia(); return; }
           window.__started = true;
         }
+        if (run && run.then) {
+          run.then(afterPlay).catch(function () {
+            if (!window.__introOn) { killTahyia(); return; }
+            v.muted = true;
+            v.play().then(function () {
+              if (!window.__introOn) { killTahyia(); return; }
+              v.muted = false;
+              window.__started = true;
+            }).catch(afterPlay);
+          });
+        } else {
+          afterPlay();
+        }
+      }
+      var v0 = getV();
+      if (v0) {
+        v0.addEventListener("play", function () {
+          if (!window.__introOn) killTahyia();
+        });
       }
       if (play) play.addEventListener("click", startVideo);
       if (next) next.addEventListener("click", function () {
-        var vid = document.getElementById("v");
-        if (window.stopIntroVideo) window.stopIntroVideo();
-        else if (vid) {
-          try { vid.pause(); } catch (e) {}
-          vid.muted = true;
-          vid.volume = 0;
-        }
+        killTahyia();
         if (window.goScreen) window.goScreen("recall");
         else {
           var n = 0;
           var t = setInterval(function () {
             n++;
-            if (window.goScreen) { clearInterval(t); window.goScreen("recall"); }
+            if (window.goScreen) { clearInterval(t); killTahyia(); window.goScreen("recall"); }
             if (n > 80) clearInterval(t);
           }, 50);
         }
       });
     })();
   </script>
-  <script src="app.js?v=skip" defer></script>
+  <script src="app.js?v=mute" defer></script>
 </body>
 </html>
