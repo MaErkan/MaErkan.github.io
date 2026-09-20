@@ -28,9 +28,9 @@
     { big: "مفتاح", small: "مُفَيْتِيح", w: "فُعَيْعِيل" },
   ];
   const DIMIN = [
-    { big: "أسد", answer: "أُسَيْد", weight: "فُعَيْل", options: ["أُسَيْد", "أُسَيْجِد", "أُسَيْفِير"] },
-    { big: "مسجد", answer: "مُسَيْجِد", weight: "فُعَيْعِل", options: ["مُسَيْجِد", "مُسَيْجدِيل", "مُسَيْد"] },
-    { big: "عصفور", answer: "عُصَيْفِير", weight: "فُعَيْعِيل", options: ["عُصَيْفِير", "عُصَيْفِر", "عُصَيْد"] },
+    { big: "أسد", answer: "أُسَيْد", weight: "فُعَيْل", options: ["أُسَيْد", "أُسُود", "سَيِّد"] },
+    { big: "مسجد", answer: "مُسَيْجِد", weight: "فُعَيْعِل", options: ["مُسَيْجِد", "مَسَاجِد", "مُسَيْجِيد"] },
+    { big: "عصفور", answer: "عُصَيْفِير", weight: "فُعَيْعِيل", options: ["عُصَيْفِير", "عَصَافِير", "عُصَيْفِر"] },
   ];
   const OBJECTIVES = [
     "يحدد أوزان التصغير تحديدًا صحيحًا.",
@@ -234,7 +234,7 @@
       <h1>أغراض التصغير</h1>
       <p class="lead">درس تفاعلي: نكتشف أغراض التصغير من السياق، لا من الحجم وحده.</p>
       <div class="stage">
-        <video id="v" poster="media/open.jpg?v=32" playsinline preload="none" src="media/tahyia.mp4?v=32" ${S.started ? "controls" : ""}></video>
+        <video id="v" poster="media/open31.jpg" playsinline preload="none" src="media/tahyia-txt.mp4?v=txt" ${S.started ? "controls" : ""}></video>
         ${S.started ? "" : `<button class="play" type="button" data-act="play"><span>تشغيل التهيئة بالصوت<small>دقيقة ونصف · أغراض التصغير</small></span></button>`}
       </div>
       ${nextBtn("إلى الاسترجاع", 'data-act="next"', !S.started)}
@@ -407,12 +407,12 @@
       ).join("")}</div>
       ${S.learn ? fb(S.learn === CLOSE_LEARN.answer, CLOSE_LEARN.full) : ""}
       <h2>ماذا تعلمت اليوم؟</h2>
-      <p class="quote">الحقيبة دوين الرف.</p>
-      <p class="q">ما غرض التصغير في «دوين»؟</p>
+      <p class="quote">الحقيبة دُوَيْنَ الرف.</p>
+      <p class="q">ما غرض التصغير في «دُوَيْنَ»؟</p>
       <div class="grid2">${PURPOSES.map((p) =>
         btn(p.label, `data-act="bag" data-opt="${p.id}"`, S.bag === p.id ? (p.id === "place" ? "ok" : "bad") : S.bag && p.id === "place" ? "ok" : "")
       ).join("")}</div>
-      ${S.bag ? fb(S.bag === "place", "دوين الرف تدل على قرب المكان.") : ""}
+      ${S.bag ? fb(S.bag === "place", "دُوَيْنَ الرف تدل على قرب المكان.") : ""}
       <h3>وظّف مصغّر الكلمات بحسب الدلالة</h3>
       <div class="card"><p>هرة · المطلوب: صغر الحجم</p>
         ${S.used.h ? `<p>رأيت هُرَيْرَةً صغيرة.</p>` : btn("إظهار جملة الصف", 'data-act="use" data-opt="h"')}</div>
