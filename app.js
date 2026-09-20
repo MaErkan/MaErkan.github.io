@@ -83,7 +83,7 @@
     full: "ما سنتعلمه في درسنا اليوم أَغْرَاضُ التَّصْغِيرِ، وأن السياق هو مفتاح معرفة الغرض.",
     options: ["أَغْرَاضُ التَّصْغِيرِ", "صِغَرُ الْحَجْمِ فَقَطْ", "أَوْزَانُ الْفِعْلِ"],
   };
-  const PRAISE = ["أحسنت يا بني.", "أجدت.", "أنت متميز.", "أحسنت.", "ممتاز يا فتى.", "نعم، هذا هو المراد.", "أصبت.", "إجابة متميزة.", "نعم يا بني.", "فكرت تفكير العلماء.", "أنت بارع.", "أحسنت الفهم.", "رائع، أصبت.", "نعم يا بطل.", "وفقت."];
+  const PRAISE = ["أحسنت.", "أنت بارع.", "بطل.", "رائع.", "يا لك من متميز.", "أنت عالم المستقبل.", "متميز دائمًا."];
   const RETRY = ["حاول مرة أخرى.", "تأمل السياق يا بني.", "راجع المثال.", "فكر في دلالة الكلمة.", "اقترب، أعد المحاولة.", "انظر إلى الجملة كاملة."];
 
   const S = {
@@ -164,14 +164,14 @@
     if (i > 0) go(SCREENS[i - 1].id);
   }
   function fb(ok, html) {
-    const t = S.lastPraise || (ok ? "أحسنت يا بني." : "حاول مرة أخرى.");
+    const t = S.lastPraise || (ok ? "أحسنت." : "حاول مرة أخرى.");
     return `<div class="fb ${ok ? "ok" : "bad"}"><p class="t">${t}</p><div>${html}</div></div>`;
   }
   function play(ok) {
     const list = ok ? PRAISE : RETRY;
     const files = ok
-      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=10")
-      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=10");
+      ? list.map((_, i) => "media/praise/p" + String(i).padStart(2, "0") + ".mp3?v=11")
+      : list.map((_, i) => "media/praise/r" + String(i).padStart(2, "0") + ".mp3?v=11");
     const i = Math.floor(Math.random() * list.length);
     S.lastPraise = list[i];
     const a = new Audio(files[i]);
