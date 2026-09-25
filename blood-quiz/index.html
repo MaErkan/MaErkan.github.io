@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تحدّي الدم ومكوّناته — 20 سؤالًا</title>
+  <style>
+    :root{--bg1:#f7f8fb;--bg2:#eef2f7;--card:#ffffff;--panel:#f9fafc;--border:#d9e0ea;--text:#1f2937;--muted:#5f6b7a;--accent:#8f1f3b;--ok:#23825c;--bad:#b3444d}
+    *{box-sizing:border-box} body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr);gap:18px;align-items:center;padding:22px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(145deg,#fff,#f7f9fc);box-shadow:0 12px 28px rgba(0,0,0,.06)}
+    h1{margin:0 0 10px;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--accent)}.sub{margin:0;line-height:1.9;color:var(--muted);font-size:1.02rem}
+    .blood-scene{position:relative;min-height:220px;perspective:900px;display:flex;align-items:center;justify-content:center;overflow:hidden}.tube{width:95px;height:185px;border:5px solid rgba(56,72,92,.3);border-top:0;border-radius:0 0 42px 42px;position:relative;overflow:hidden;transform:rotate(-7deg);background:linear-gradient(to top,#a32736 0 42%,#f7f3e5 42% 45%,#e8c158 45% 100%);box-shadow:inset 10px 0 16px rgba(255,255,255,.4),0 14px 24px rgba(0,0,0,.07)}
+    .cell{position:absolute;width:64px;height:24px;border-radius:50%;background:radial-gradient(ellipse at center,#731b28 0 28%,#c84a58 31% 60%,#8c2433 64%);box-shadow:0 12px 18px rgba(0,0,0,.18);transform:rotateX(58deg) rotateZ(-12deg)}.c1{right:25px;top:25px}.c2{left:20px;bottom:28px;transform:rotateX(58deg) rotateZ(24deg) scale(.82)}.c3{left:100px;top:18px;transform:rotateX(58deg) rotateZ(-18deg) scale(.7)}
+    .wbc{position:absolute;left:12px;top:78px;width:68px;height:68px;border-radius:48% 52% 45% 55%;background:radial-gradient(circle at 38% 40%,#765398 0 18%,#b991cf 20% 38%,#e6dff1 41% 100%);box-shadow:0 12px 20px rgba(0,0,0,.17)}
+    .platelet{position:absolute;right:18px;bottom:36px;width:42px;height:26px;border-radius:45%;background:linear-gradient(135deg,#d8a35f,#9d6731);transform:rotate(20deg);box-shadow:0 10px 14px rgba(0,0,0,.16)}
+    .panel{margin-top:18px;padding:18px;border:1px solid var(--border);border-radius:24px;background:var(--panel);box-shadow:0 10px 24px rgba(0,0,0,.05)}.topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+    .pill{padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--border);font-weight:800;font-size:.95rem}.progress{height:13px;background:#e6ecf2;border-radius:999px;overflow:hidden;margin-bottom:18px}.progress>span{display:block;height:100%;width:5%;background:linear-gradient(90deg,var(--accent),#c54661);transition:width .3s ease}
+    .qnum{font-size:.88rem;color:var(--muted);font-weight:800;margin-bottom:7px}.question{font-size:clamp(1.08rem,2.5vw,1.42rem);font-weight:900;line-height:1.8;margin-bottom:15px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .answer{min-height:62px;border:1.5px solid var(--border);background:#fff;color:var(--text);border-radius:16px;padding:11px 13px;text-align:right;font:inherit;font-weight:750;cursor:pointer;transition:.18s;display:flex;gap:10px;align-items:center;box-shadow:0 4px 10px rgba(0,0,0,.03)}.answer:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .answer.correct{border-color:var(--ok);background:#eef8f3}.answer.wrong{border-color:var(--bad);background:#fbefef}.letter{flex:0 0 32px;width:32px;height:32px;border-radius:10px;background:#f1e3e8;display:grid;place-items:center;font-weight:900;color:var(--accent)}
+    .feedback{min-height:52px;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:#fff;line-height:1.75;color:var(--muted)}.actions{display:flex;justify-content:flex-start;gap:10px;margin-top:14px;flex-wrap:wrap}
+    .primary,.secondary{min-height:46px;border-radius:14px;padding:10px 18px;font:inherit;font-weight:900;cursor:pointer}.primary{border:0;background:linear-gradient(135deg,var(--accent),#b83b58);color:white}.secondary{border:1px solid var(--border);background:#fff;color:var(--text)}.primary:disabled{opacity:.45;cursor:not-allowed}
+    .result{display:none;text-align:center;padding:28px 12px}.scoreOrb{width:140px;height:140px;margin:4px auto 16px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#f8b7bd,#b33a49 45%,#6f1f2b 72%);color:white;box-shadow:0 16px 30px rgba(0,0,0,.2);font-size:1.85rem;font-weight:950;border:7px solid rgba(255,255,255,.3)}
+    .result h3{font-size:1.6rem;font-weight:950;margin:5px 0}.result p{color:var(--muted);line-height:1.9;font-size:1.04rem}.footer-note{margin-top:18px;text-align:center;color:#738091;font-size:.93rem}
+    @media(max-width:720px){.hero{grid-template-columns:1fr}.blood-scene{min-height:170px}.answers{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div><h1>🩸 تحدّي الدم ومكوّناته</h1><p class="sub">نشاط تفاعلي من <strong>20 سؤالًا</strong> عن مكوّنات الدم ووظائفه وخلايا الدم الحمراء وتكيفاتها، بهوية بصرية ثلاثية الأبعاد وألوان احترافية مناسبة لدرس: <strong>الدم واللمف</strong>.</p></div>
+    <div class="blood-scene" aria-label="رسم ثلاثي الأبعاد مبسط لمكونات الدم"><div class="tube"></div><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="wbc"></div><div class="platelet"></div></div>
+  </section>
+
+  <section class="panel" id="quizPanel">
+    <div class="topbar"><span class="pill" id="countPill">السؤال 1 من 20</span><span class="pill" id="scorePill">النتيجة: 0</span></div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div id="quizBody">
+      <div class="qnum" id="qNum">السؤال 1</div><div class="question" id="question"></div><div class="answers" id="answers"></div><div class="feedback" id="feedback">اختاري إجابة واحدة.</div>
+      <div class="actions"><button type="button" class="primary" id="nextBtn" disabled>السؤال التالي ←</button><button type="button" class="secondary" id="restartTop">إعادة من البداية</button></div>
+    </div>
+    <div class="result" id="resultBox"><div class="scoreOrb"><span id="finalScore">0/20</span></div><h3 id="resultTitle">أحسنتِ!</h3><p id="resultMsg"></p><button type="button" class="primary" id="restartBtn">إعادة المحاولة</button></div>
+  </section>
+  <div class="footer-note">نشاط تفاعلي — مكونات الدم والدم واللمف</div>
+</div>
+
+<script>
+const Q=[
+{q:'أي مكوّن يشكّل النسبة الأكبر من الدم حسب المصدر؟',a:['خلايا الدم الحمراء','البلازما','خلايا الدم البيضاء','الصفائح الدموية'],c:1,e:'البلازما تشكّل نحو 55% من الدم.'},
+{q:'ما النسبة التي تمثلها خلايا الدم الحمراء من الدم في الشكل؟',a:['42%','55%','2%','1%'],c:0,e:'خلايا الدم الحمراء تمثل نحو 42%.'},
+{q:'ما النسبة الموضحة للصفائح الدموية؟',a:['55%','42%','2%','10%'],c:2,e:'النسبة الموضحة للصفائح الدموية هي 2%.'},
+{q:'لماذا توصف البلازما بأنها محلول مائي؟',a:['لأنها لا تحتوي بروتينات','لأنها تحتوي مواد صلبة وأملاحًا وسكريات وغازات ذائبة','لأنها تتكون من خلايا فقط','لأنها لا تحتوي ماء'],c:1,e:'البلازما محلول مائي يحمل مواد صلبة وأملاحًا وسكريات وغازات ذائبة.'},
+{q:'لماذا يُعد الدم معلقًا؟',a:['لوجود خلايا الدم والصفائح معلقة في البلازما','لأن جميع مكوناته ذائبة تمامًا','لأنه لا يحتوي ماء','لوجود الهيموجلوبين فقط'],c:0,e:'خلايا الدم والصفائح تكون معلقة في البلازما.'},
+{q:'أي وظيفة من الآتي تُعد من وظائف الدم؟',a:['تصنيع العظام','نقل المواد الغذائية والغازات من الخلايا وإليها','إنتاج الضوء','هضم الغذاء داخل المعدة'],c:1,e:'من وظائف الدم نقل المواد الغذائية والغازات من الخلايا وإليها.'},
+{q:'ما المقصود بالإرقاء حسب المصدر؟',a:['رفع حرارة الجسم','وقف نزف الدم بعد الإصابة','زيادة عدد خلايا الدم','تكوين الهرمونات'],c:1,e:'الإرقاء هو وقف نزف الدم بعد الإصابة.'},
+{q:'أي مكوّن يقوم بوظائف وقائية في الجهاز المناعي؟',a:['خلايا الدم البيضاء','البلازما فقط','خلايا الدم الحمراء','الصفائح فقط'],c:0,e:'خلايا الدم البيضاء لها وظائف وقائية في الجهاز المناعي.'},
+{q:'ما الوظيفة الأساسية المذكورة لخلايا الدم الحمراء؟',a:['إنتاج الأجسام المضادة','نقل الأكسجين وثاني أكسيد الكربون','تجلط الدم فقط','إنتاج الهرمونات'],c:1,e:'خلايا الدم الحمراء تنقل الأكسجين وثاني أكسيد الكربون.'},
+{q:'كم يومًا تقريبًا تبقى خلية الدم الحمراء حية؟',a:['30 يومًا','60 يومًا','120 يومًا','365 يومًا'],c:2,e:'العمر التقريبي لخلية الدم الحمراء هو 120 يومًا.'},
+{q:'أين تُنتج خلايا الدم الحمراء؟',a:['في الكبد فقط','في نخاع العظم الأحمر من خلايا جذعية','في الرئتين','في البلازما'],c:1,e:'تنتج من خلايا جذعية في نخاع العظم الأحمر.'},
+{q:'ما أهمية الخلايا الجذعية المذكورة في المصدر؟',a:['تتطور إلى خلايا دم بيضاء أو حمراء أو صفائح دموية','تنتج البلازما فقط','تتحول إلى عظام فقط','تنقل الأكسجين مباشرة'],c:0,e:'يمكن أن تتطور الخلايا الجذعية إلى عدة مكونات خلوية للدم.'},
+{q:'أي وصف يميز شكل خلية الدم الحمراء؟',a:['كروية كبيرة','قرصية ومقعرة الوجهين في الوسط','مكعبة الشكل','طويلة ومتفرعة'],c:1,e:'هي قرصية الشكل ومقعرة الوجهين، مما يزيد مساحة السطح لتبادل الغازات.'},
+{q:'ما أثر الشكل القرصي المقعر للوجهين؟',a:['تقليل مساحة السطح','توفير مساحة سطحية أكبر لتبادل الغازات','منع مرور الأكسجين','زيادة حجم النواة'],c:1,e:'هذا الشكل يزيد مساحة السطح المتاحة لتبادل الغازات.'},
+{q:'لماذا يساعد صغر حجم ومرونة خلية الدم الحمراء في أداء وظيفتها؟',a:['يسمح لها بالمرور في الشعيرات الدموية الضيقة','يمنعها من الحركة','يزيد عدد نواها','يجعلها تنتج الهرمونات'],c:0,e:'المرونة وصغر الحجم يساعدانها على المرور في الشعيرات الدقيقة.'},
+{q:'ماذا تفقد خلية الدم الحمراء عندما تنضج حسب الجدول؟',a:['الغشاء البلازمي','النواة والشبكة الإندوبلازمية والميتوكندريا','الهيموجلوبين','السيتوبلازم كله'],c:1,e:'تفقد النواة والشبكة الإندوبلازمية والميتوكندريا عند النضج.'},
+{q:'ما فائدة فقد معظم العضيات في خلية الدم الحمراء؟',a:['إفساح المجال للمزيد من جزيئات الهيموجلوبين','زيادة الانقسام الخلوي','إنتاج المزيد من الميتوكندريا','تكوين الأجسام المضادة'],c:0,e:'فقد العضيات يفسح مساحة أكبر للهيموجلوبين.'},
+{q:'لماذا تلجأ خلية الدم الحمراء إلى التنفس اللاهوائي (التخمر اللبني)؟',a:['لأنها تحتوي عددًا كبيرًا من الميتوكندريا','لأنها لا تحتوي ميتوكندريا عند النضج','لأنها لا تحتوي ماء','لأنها لا تحتاج طاقة'],c:1,e:'الخلية الناضجة لا تحتوي ميتوكندريا، لذا تعتمد على مسار لاهوائي للحصول على الطاقة.'},
+{q:'كم يبلغ قطر خلية الدم الحمراء تقريبًا حسب المصدر؟',a:['7 ميكرومتر','80 ميكرومتر','700 ميكرومتر','1 ميكرومتر'],c:0,e:'قطر خلية الدم الحمراء يقارب 7 ميكرومتر.'},
+{q:'كم جزيء هيموجلوبين تقريبًا تحتوي خلية الدم الحمراء الواحدة حسب المصدر؟',a:['270 جزيئًا','270 ألفًا','270 مليون جزيء','2.7 مليار جزيء'],c:2,e:'تحتوي الخلية الواحدة نحو 270 مليون جزيء هيموجلوبين.'}
+];
+let i=0,score=0,locked=false;
+const qEl=document.getElementById('question'),ansEl=document.getElementById('answers'),fb=document.getElementById('feedback'),next=document.getElementById('nextBtn'),qNum=document.getElementById('qNum'),count=document.getElementById('countPill'),scoreP=document.getElementById('scorePill'),bar=document.getElementById('progressBar'),body=document.getElementById('quizBody'),result=document.getElementById('resultBox');
+const letters=['أ','ب','ج','د'];
+function render(){locked=false;next.disabled=true;const item=Q[i];qEl.textContent=item.q;qNum.textContent='السؤال '+(i+1);count.textContent='السؤال '+(i+1)+' من '+Q.length;scoreP.textContent='النتيجة: '+score;bar.style.width=(((i)/Q.length)*100)+'%';fb.textContent='اختاري إجابة واحدة.';ansEl.innerHTML='';item.a.forEach((txt,idx)=>{const b=document.createElement('button');b.type='button';b.className='answer';b.innerHTML='<span class="letter">'+letters[idx]+'</span><span>'+txt+'</span>';b.addEventListener('click',()=>choose(idx,b));ansEl.appendChild(b)});next.textContent=i===Q.length-1?'عرض النتيجة':'السؤال التالي ←'}
+function choose(idx,b){if(locked)return;locked=true;const item=Q[i],buttons=[...ansEl.querySelectorAll('.answer')];buttons.forEach(x=>x.disabled=true);buttons[item.c].classList.add('correct');if(idx===item.c){score++;scoreP.textContent='النتيجة: '+score;fb.textContent='✓ إجابة صحيحة — '+item.e}else{b.classList.add('wrong');fb.textContent='✗ ليست الإجابة الصحيحة. '+item.e}next.disabled=false}
+function finish(){bar.style.width='100%';body.style.display='none';result.style.display='block';document.getElementById('finalScore').textContent=score+'/'+Q.length;let t,m;if(score>=18){t='ممتاز جدًا 🩸✨';m='إتقان قوي لمكوّنات الدم ووظائف خلايا الدم الحمراء.'}else if(score>=14){t='أداء رائع 👏';m='فهم جيد جدًا، وراجعي فقط النقاط التي أخطأتِ فيها.'}else if(score>=10){t='تقدّم جيد 🌟';m='أعيدي المحاولة لترسيخ النسب وتكيفات خلايا الدم الحمراء.'}else{t='محاولة جيدة 💪';m='راجعي مكوّنات الدم ووظائفه ثم جرّبي التحدي مرة أخرى.'}document.getElementById('resultTitle').textContent=t;document.getElementById('resultMsg').textContent='حصلتِ على '+score+' إجابة صحيحة من أصل '+Q.length+'. '+m}
+function restart(){i=0;score=0;body.style.display='block';result.style.display='none';render()}
+next.addEventListener('click',()=>{if(!locked)return;if(i<Q.length-1){i++;render()}else finish()});
+document.getElementById('restartTop').addEventListener('click',restart);document.getElementById('restartBtn').addEventListener('click',restart);render();
+</script>
+</body>
+</html>
